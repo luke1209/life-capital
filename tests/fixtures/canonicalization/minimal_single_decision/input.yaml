@@ -1,0 +1,29 @@
+schema_version: "1.0"
+version: "1.0"
+last_updated: "2024-12-29T10:00:00Z"
+
+records:
+  - decision_id: "dec_01JGSAMPLE123456"
+    operation_id: "op_01JGSAMPLE789"
+    created_at: "2024-12-29T10:00:00Z"
+    template_id: "simple_choice"
+    status: "pending"
+    confidence: "high"
+    comparability_score: 0.8
+    input_hash: "abcd1234"
+    option_a:
+      direction: "conservative"
+      label: "Option A"
+      recommendation: "Conservative choice"
+      score: 0.7
+      status: "comparable"
+    option_b:
+      direction: "aggressive"
+      label: "Option B"
+      recommendation: "Aggressive choice"
+      score: 0.8
+      status: "comparable"
+    risk_tags:
+      - "financial"
+      - "timing"
+    risk_explanation: "Standard risk profile"

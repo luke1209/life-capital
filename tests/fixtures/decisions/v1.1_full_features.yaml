@@ -1,0 +1,87 @@
+version: "1.1"
+last_updated: "2025-12-29T10:00:00Z"
+records:
+  - decision_id: "dec_01JGTEST00000000000005"
+    operation_id: "01JGTEST00000000000005"
+    created_at: "2025-12-29T10:00:00Z"
+    template_id: "default"
+    status: "applied"
+    confidence: "high"
+    comparability_score: 0.9
+    input_hash: "full123feature456"
+    option_a:
+      direction: "conservative"
+      label: "方案 A：延後購房"
+      recommendation: "建議延後購房至市場穩定"
+      score: 0.8
+      status: "comparable"
+    option_b:
+      direction: "aggressive"
+      label: "方案 B：立即購房"
+      recommendation: "建議立即把握當前利率"
+      score: 0.95
+      status: "comparable"
+    risk_tags:
+      - "market_volatility"
+      - "interest_rate_risk"
+    risk_explanation: "市場波動與利率風險並存"
+    blocking_reasons: []
+    assumption_snapshot:
+      snapshot_version: "1.0"
+      created_at: "2025-12-29T10:00:00Z"
+      inflation_rate: 0.02
+      investment_return: 0.05
+      income_growth: 0.03
+      expense_growth: 0.025
+      custom_assumptions: {}
+    preference_weights:
+      liquidity: 0.3
+      growth: 0.3
+      safety: 0.25
+      flexibility: 0.15
+    schema_version: "1.1"
+    decision_rationale: "考慮到當前利率處於低位，且市場預期未來上升，建議立即行動以鎖定較低成本"
+
+  - decision_id: "dec_01JGTEST00000000000006"
+    operation_id: "01JGTEST00000000000006"
+    created_at: "2025-12-29T10:05:00Z"
+    template_id: "default"
+    status: "reverted"
+    confidence: "high"
+    comparability_score: 0.9
+    input_hash: "full123feature456"
+    option_a:
+      direction: "conservative"
+      label: "方案 A：延後購房"
+      recommendation: "建議延後購房至市場穩定"
+      score: 0.8
+      status: "comparable"
+    option_b:
+      direction: "aggressive"
+      label: "方案 B：立即購房"
+      recommendation: "建議立即把握當前利率"
+      score: 0.95
+      status: "comparable"
+    risk_tags:
+      - "market_volatility"
+      - "interest_rate_risk"
+    risk_explanation: "市場波動與利率風險並存"
+    blocking_reasons: []
+    assumption_snapshot:
+      snapshot_version: "1.0"
+      created_at: "2025-12-29T10:00:00Z"
+      inflation_rate: 0.02
+      investment_return: 0.05
+      income_growth: 0.03
+      expense_growth: 0.025
+      custom_assumptions: {}
+    preference_weights:
+      liquidity: 0.3
+      growth: 0.3
+      safety: 0.25
+      flexibility: 0.15
+    reverted_at: "2025-12-29T10:05:00Z"
+    reverted_by: "01JGTEST00000000000006"
+    schema_version: "1.1"
+    decision_rationale: "考慮到當前利率處於低位，且市場預期未來上升，建議立即行動以鎖定較低成本"
+    reverted_from_decision_id: "dec_01JGTEST00000000000005"

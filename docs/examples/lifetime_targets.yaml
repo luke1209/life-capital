@@ -1,0 +1,33 @@
+schema_version: "1.1"
+
+# 終身財務目標
+# 所有 amount 都以 base_year (2024) 幣值計算
+
+targets:
+  - name: "房屋頭期款"
+    category: "housing"
+    priority: "high"
+    amount: 3000000        # 300 萬
+    target_year: 2028
+    notes: "首購自住宅頭期款"
+
+  - name: "小孩 A 大學學費"
+    category: "children"
+    priority: "high"
+    amount: 2000000        # 200 萬
+    target_year: 2043
+    notes: "4 年學費總額"
+
+  - name: "換車基金"
+    category: "transportation"
+    priority: "medium"
+    amount: 800000         # 80 萬
+    target_year: 2030
+    notes: "中型 SUV 或電動車"
+
+  - name: "退休金準備"
+    category: "retirement"
+    priority: "high"
+    amount: 10000000       # 1000 萬
+    target_year: 2054
+    notes: "退休時需準備的一次性金額"

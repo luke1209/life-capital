@@ -1,0 +1,16 @@
+date,amount,category,payer,note,merchant
+2025-01-01,20000,housing,shared,月租,房東
+2025-01-02,3500,food,shared,超市採買,全聯
+2025-01-05,1200,transportation,person_a,加油,中油
+2025-01-05,500,entertainment,shared,電影票,威秀影城
+2025-01-08,2800,food,person_b,超市採買,家樂福
+2025-01-10,1500,utilities,shared,電費,台電
+2025-01-12,800,utilities,shared,瓦斯費,欣欣瓦斯
+2025-01-15,3000,insurance,person_a,意外險,富邦
+2025-01-18,1800,dining_out,shared,聚餐,餐廳
+2025-01-20,2500,shopping,person_b,衣服,UNIQLO
+2025-01-22,600,transportation,person_a,捷運月票,捷運公司
+2025-01-25,1000,entertainment,shared,KTV,錢櫃
+2025-01-28,10000,savings,person_a,定存,銀行
+2025-01-28,8000,investment,person_b,ETF 定期定額,券商
+2025-01-30,2000,food,shared,超市採買,全聯

@@ -1,0 +1,9 @@
+{
+  "properties": {},
+  "required": [
+    "date",
+    "amount",
+    "category"
+  ],
+  "type": "object"
+}

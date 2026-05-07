@@ -1,0 +1,8 @@
+{
+  "properties": {},
+  "required": [
+    "scenario",
+    "projection"
+  ],
+  "type": "object"
+}

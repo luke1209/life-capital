@@ -1,0 +1,183 @@
+# Contract Tests Workflow
+# 驗證 Schema、Golden Data、Mock 一致性的自動化測試
+
+name: Contract Tests
+
+on:
+  pull_request:
+    branches: [master, main]
+  push:
+    branches: [master, main]
+
+jobs:
+  contract-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # V4.2 修正：使用 paths-filter 偵測變更路徑
+      - name: Detect changed paths
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            baselines:
+              - 'tests/contracts/baselines/**'
+            golden:
+              - 'tests/contracts/golden/**'
+            schema:
+              - 'life_capital/models/**'
+            contracts:
+              - 'docs/contracts/**'
+            interfaces:
+              - 'life_capital/interfaces/**'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Install dependencies
+        run: |
+          uv sync --frozen
+
+      # 第一次執行測試（可能失敗）
+      - name: Run contract tests (first attempt)
+        id: first_run
+        continue-on-error: true
+        run: |
+          if uv run pytest tests/contracts/ -v --tb=short 2>&1 | tee first_run.log; then
+            echo "result=pass" >> $GITHUB_OUTPUT
+          else
+            echo "result=fail" >> $GITHUB_OUTPUT
+          fi
+
+      # Flaky 處理：如果第一次失敗，只 rerun 失敗的測試
+      - name: Rerun failed tests (flaky detection)
+        id: rerun
+        if: steps.first_run.outputs.result == 'fail'
+        continue-on-error: true
+        run: |
+          echo "::warning::First run failed, attempting rerun..."
+          if uv run pytest tests/contracts/ -v --tb=short --lf 2>&1 | tee rerun.log; then
+            echo "result=flaky" >> $GITHUB_OUTPUT
+            echo "::warning::Tests passed on rerun - marking as flaky"
+          else
+            echo "result=fail" >> $GITHUB_OUTPUT
+          fi
+
+      # 產出 Flaky 報告
+      - name: Generate flaky report
+        if: steps.rerun.outputs.result == 'flaky'
+        run: |
+          echo "## Flaky Tests Detected" > flaky_report.md
+          echo "" >> flaky_report.md
+          echo "The following tests failed on first run but passed on rerun:" >> flaky_report.md
+          echo "" >> flaky_report.md
+          echo '```' >> flaky_report.md
+          grep -E "^FAILED" first_run.log >> flaky_report.md || echo "No specific failures captured" >> flaky_report.md
+          echo '```' >> flaky_report.md
+          echo "" >> flaky_report.md
+          echo "**Action**: These tests should be investigated and stabilized." >> flaky_report.md
+
+      - name: Upload flaky report
+        if: steps.rerun.outputs.result == 'flaky'
+        uses: actions/upload-artifact@v4
+        with:
+          name: flaky-report
+          path: flaky_report.md
+
+      # 檢查 Schema 變更
+      - name: Check schema changes
+        if: steps.changes.outputs.schema == 'true'
+        run: |
+          python scripts/check_schema_diff.py || true
+
+      # V4.2 修正：使用 github-script 讀取 labels（避免 gh 權限問題）
+      - name: Verify schema-approved label
+        if: steps.changes.outputs.schema == 'true' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            // 檢查是否有 schema diff 報告
+            if (!fs.existsSync('schema_diff_report.md')) {
+              console.log('No schema changes detected');
+              return;
+            }
+
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number
+            });
+
+            const hasLabel = pr.labels.some(l => l.name === 'schema-approved');
+            if (!hasLabel) {
+              core.setFailed("Schema changes detected but 'schema-approved' label is missing. Please add the label after review.");
+            } else {
+              console.log("'schema-approved' label found - proceeding with schema changes");
+            }
+
+      # 驗證 baseline 變更需要 CODEOWNERS 審核
+      - name: Verify baseline changes require CODEOWNERS
+        if: steps.changes.outputs.baselines == 'true' && github.event_name == 'pull_request'
+        run: |
+          echo "::notice::Baseline changes detected - CODEOWNERS approval required"
+
+      # 驗證 interface 變更需要審核
+      - name: Verify interface changes
+        if: steps.changes.outputs.interfaces == 'true' && github.event_name == 'pull_request'
+        run: |
+          echo "::notice::Interface changes detected - review interface_policy.md for breaking change rules"
+
+      # 最終失敗檢查
+      - name: Fail on real failures
+        if: steps.first_run.outputs.result == 'fail' && steps.rerun.outputs.result == 'fail'
+        run: |
+          echo "::error::Contract tests failed after retry"
+          exit 1
+
+  # 完整回歸測試
+  regression-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Install dependencies
+        run: |
+          uv sync --frozen
+
+      - name: Run full test suite
+        run: |
+          uv run pytest tests/ -v --tb=short
+
+      - name: Run linting
+        run: |
+          uv run ruff check life_capital/ tests/ scripts/
+
+      - name: Run type checking
+        run: |
+          uv run mypy life_capital/ --ignore-missing-imports || true

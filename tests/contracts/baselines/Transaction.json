@@ -1,0 +1,10 @@
+{
+  "additionalProperties": false,
+  "properties": {},
+  "required": [
+    "occurred_at",
+    "amount",
+    "category"
+  ],
+  "type": "object"
+}

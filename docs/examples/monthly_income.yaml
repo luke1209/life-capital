@@ -1,0 +1,22 @@
+schema_version: "1.1"
+
+# 月收入來源
+
+sources:
+  - name: "主要薪資"
+    amount: 60000
+    frequency: "monthly"
+    owner: "person_a"
+    notes: "稅後實領"
+
+  - name: "副業收入"
+    amount: 20000
+    frequency: "monthly"
+    owner: "person_b"
+    notes: "接案或兼職"
+
+  - name: "年終獎金"
+    amount: 120000
+    frequency: "yearly"
+    owner: "person_a"
+    notes: "約 2 個月薪資"

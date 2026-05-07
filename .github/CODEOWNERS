@@ -1,0 +1,22 @@
+# CODEOWNERS for Life Capital
+# 定義需要特定審核者的檔案路徑
+
+# Contract 相關文件需要 core maintainers 審核
+docs/contracts/*                @core-maintainers
+tests/contracts/*               @core-maintainers
+tests/contracts/baselines/      @core-maintainers
+tests/contracts/golden/         @core-maintainers
+
+# Model 定義變更需要審核（可能是 breaking change）
+life_capital/models/*           @core-maintainers
+
+# Interface 層變更需要審核
+life_capital/interfaces/*       @core-maintainers
+
+# IO 層核心邏輯
+life_capital/io/registry.py     @core-maintainers
+
+# Schema 相關腳本
+scripts/update_schema_baseline.py   @core-maintainers
+scripts/schema_normalize.py         @core-maintainers
+scripts/golden_data_diff.py         @core-maintainers

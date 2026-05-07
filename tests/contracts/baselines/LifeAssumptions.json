@@ -1,0 +1,67 @@
+{
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "currency": {"type": "string", "enum": ["TWD", "USD"]},
+        "base_year": {"type": "integer"}
+      }
+    },
+    "basic": {
+      "type": "object",
+      "properties": {
+        "primary_member": {"type": ["string", "null"]},
+        "current_age": {"type": ["integer", "null"]},
+        "retirement_age": {"type": ["integer", "null"]},
+        "expected_lifespan": {"type": ["integer", "null"]}
+      }
+    },
+    "members": {
+      "type": ["object", "null"],
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "display_name": {"type": "string"},
+          "birth_year": {"type": "integer"},
+          "retirement_age": {"type": "integer"},
+          "expected_lifespan": {"type": "integer"},
+          "birth_year_estimated": {"type": "boolean"}
+        },
+        "required": ["display_name", "birth_year", "retirement_age", "expected_lifespan"]
+      }
+    },
+    "rates": {
+      "type": "object",
+      "properties": {
+        "mode": {"type": "string", "enum": ["nominal", "real"]},
+        "annual_inflation": {"type": "number"},
+        "nominal_investment_return": {"type": ["number", "null"]},
+        "real_investment_return": {"type": ["number", "null"]}
+      },
+      "required": ["mode", "annual_inflation"]
+    },
+    "calculation": {
+      "type": "object",
+      "properties": {
+        "scale": {"type": "integer"},
+        "rounding": {"type": "string"},
+        "rounding_stage": {"type": "string"}
+      }
+    },
+    "family": {
+      "type": "object",
+      "properties": {
+        "children": {"type": "array"}
+      }
+    }
+  },
+  "required": [
+    "basic",
+    "rates"
+  ],
+  "type": "object",
+  "$comment": "V1.2: members 與 basic legacy 欄位互斥。使用 members 時需設定 basic.primary_member"
+}

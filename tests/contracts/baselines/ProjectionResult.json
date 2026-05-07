@@ -1,0 +1,16 @@
+{
+  "properties": {},
+  "required": [
+    "monthly_projections",
+    "total_income",
+    "total_expenses",
+    "final_cumulative_savings",
+    "average_monthly_cashflow",
+    "deficit_months",
+    "first_deficit_month",
+    "asset_depletion_month",
+    "input_hash",
+    "calculation_timestamp"
+  ],
+  "type": "object"
+}

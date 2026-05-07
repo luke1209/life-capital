@@ -1,0 +1,51 @@
+schema_version: "1.2"
+
+# 元資料
+metadata:
+  currency: "TWD"      # 幣別：TWD / USD
+  base_year: 2024      # 所有金額的基準年（年齡計算的參考年份）
+
+# 基本資訊（V1.2：指定主要成員）
+basic:
+  primary_member: "person_a"   # 主要成員 ID，必須存在於 members 中
+
+# 成員資訊（V1.2 新增）
+# 使用 birth_year 取代 current_age，確保年齡計算的一致性
+members:
+  person_a:
+    display_name: "Person A"
+    birth_year: 1990           # 出生年份（合成資料）
+    retirement_age: 90         # 預計退休年齡
+    expected_lifespan: 95      # 預期壽命
+    birth_year_estimated: false  # 是否為推算值（遷移時標記）
+  person_b:
+    display_name: "Person B"
+    birth_year: 1992
+    retirement_age: 60
+    expected_lifespan: 90
+    birth_year_estimated: false
+
+# 利率與報酬率設定
+rates:
+  mode: "nominal"                    # 計算模式：nominal（名目）或 real（實質）
+  annual_inflation: 0.02             # 年通膨率 2%
+  nominal_investment_return: 0.05    # 名目投資報酬率 5%（mode=nominal 時使用）
+  real_investment_return: 0.03       # 實質報酬率 3%（mode=real 時使用）
+
+  # 進階設定（可選）
+  salary_growth_rate: 0.03           # 薪資成長率
+  contribution_growth_rate: 0.02     # 儲蓄成長率
+
+# 計算設定
+calculation:
+  scale: 0                  # 金額保留位數（0=元，2=角分）
+  rounding: "ROUND_HALF_UP" # 捨入方式：ROUND_HALF_UP（四捨五入）或 ROUND_HALF_EVEN（銀行家捨入）
+  rounding_stage: "final"   # 捨入時機：final（只在最後）、per_period、per_year
+
+# 家庭資訊
+family:
+  children:
+    - name: "小孩 A"
+      birth_year: 2025
+      university_start_age: 18
+      financial_independence_age: 25

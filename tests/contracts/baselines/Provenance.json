@@ -1,0 +1,9 @@
+{
+  "additionalProperties": false,
+  "properties": {},
+  "required": [
+    "source_type",
+    "parser_version"
+  ],
+  "type": "object"
+}

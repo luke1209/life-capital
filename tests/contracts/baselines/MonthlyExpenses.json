@@ -1,0 +1,8 @@
+{
+  "properties": {},
+  "required": [
+    "year",
+    "month"
+  ],
+  "type": "object"
+}

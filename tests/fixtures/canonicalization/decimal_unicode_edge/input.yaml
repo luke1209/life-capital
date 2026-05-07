@@ -1,0 +1,30 @@
+schema_version: "1.0"
+version: "1.0"
+last_updated: "2024-12-29T10:00:00Z"
+
+records:
+  - decision_id: "dec_UNICODE"
+    operation_id: "op_unicode"
+    created_at: "2024-12-29T10:00:00Z"
+    template_id: "精確度測試"
+    status: "pending"
+    confidence: "high"
+    comparability_score: 0.12345678  # 測試 quantize("0.0001")
+    input_hash: "unicode123"
+    option_a:
+      direction: "conservative"
+      label: "選項 A：保守策略 🏦"  # Unicode emoji
+      recommendation: "採用穩健的投資組合"
+      score: 0.777777  # 測試浮點數處理
+      status: "comparable"
+    option_b:
+      direction: "aggressive"
+      label: "選項 B：進取策略 📈"
+      recommendation: "追求更高報酬，承擔風險"
+      score: 0.888888
+      status: "comparable"
+    risk_tags:
+      - "財務風險"
+      - "市場波動"
+      - "流動性"
+    risk_explanation: "需考慮中文字符與 emoji 的處理"

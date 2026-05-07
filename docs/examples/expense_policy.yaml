@@ -1,0 +1,38 @@
+schema_version: "1.1"
+
+# 支出政策設定
+
+metadata:
+  ratio_base: "income"      # 占比基準：income（收入）或 expense（支出）
+  allow_partial: false      # 是否允許總和小於 100%
+
+# 支出類別與占比
+# 所有比例總和必須等於 1.0 (100%)
+categories:
+  必要支出:
+    housing: 0.30           # 住房 30%
+    food: 0.15              # 飲食 15%
+    transportation: 0.10    # 交通 10%
+    utilities: 0.05         # 水電瓦斯 5%
+    insurance: 0.05         # 保險 5%
+
+  非必要支出:
+    entertainment: 0.05     # 娛樂 5%
+    shopping: 0.05          # 購物 5%
+    dining_out: 0.05        # 外食 5%
+
+  儲蓄投資:
+    savings: 0.10           # 儲蓄 10%
+    investment: 0.10        # 投資 10%
+
+# 彈性容忍度（每群組允許的正負差異）
+flexibility:
+  必要支出: 0.05            # ±5%
+  非必要支出: 0.10          # ±10%
+  儲蓄投資: 0.05            # ±5%
+
+# 未分類支出處理方式
+# warn: 警告但繼續
+# error: 視為錯誤
+# ignore: 忽略
+uncategorized_handling: "warn"

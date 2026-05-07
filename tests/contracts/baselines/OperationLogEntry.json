@@ -1,0 +1,8 @@
+{
+  "additionalProperties": false,
+  "properties": {},
+  "required": [
+    "operation"
+  ],
+  "type": "object"
+}
