@@ -339,9 +339,12 @@ lc rebuild
 
 | 版本 | 日期 | 說明 |
 |------|------|------|
-| V2.5 Phase 4 | 2025-12-29 | CAPTURE 模組：自然語言記帳與狀態機 (30 CLI 測試, 13 整合測試) |
+| V2.5 Phase 5 | 2025-12-29 | AI 顧問模組：Stage 1+2+3 全部驗收通過（決策比較器 + Decision Wiki，E1-E6 完成） |
+| V2.5 Phase 4 | 2025-12-29 | CAPTURE 模組：自然語言記帳與狀態機 (Week 1-4 完成, 21/21 tasks, 608 測試) |
+| V2.0 Phase 4 測試框架 | 2025-12-28 | 契約測試框架：Schema/Golden/CI 護欄就緒 (318 測試) |
 | V2.0 Phase 3 | 2025-12-28 | 報表生成模組：驗收完成 (9/9 contracts, 190 測試) |
 | V2.0 Phase 2 | 2025-12-28 | Scenario 模組：現金流預測與情境分析 (181 測試) |
-| V2.0 Phase 0 | 2024-12-27 | 三層架構、import/apply/undo/rebuild |
-| Schema 1.1 | 2024-12-27 | 新增 payer/owner 欄位支援雙人記帳 |
-| MVP V5.1.3 | 2024-12-26 | 7 核心指令、66 測試 |
+| V2.0 Phase 1 | 2025-12-27 | DATA 強化：去重可判定、raw 可重建 canonical/derived |
+| V2.0 Phase 0 | 2025-12-27 | 三層架構、import/apply/undo/rebuild |
+| Schema 1.1 | 2025-12-27 | 新增 payer/owner 欄位支援雙人記帳 |
+| MVP V5.1.3 | 2025-12-26 | 7 核心指令、66 測試 |
